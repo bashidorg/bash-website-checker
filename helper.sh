@@ -62,15 +62,10 @@ ProgressBar {
 hacked-check () {
   curl-checker
   list=$(cat $1)
-  mX=($(cat $1))
-  list_length=${#mX[@]}
-  idx=1
-  echo -e "--#PROGRESS:[${#list_length[@]}]-Domain:SCANNING..."
+  echo -e "--#PROGRESS:-Domain:SCANNING..."
   for i in $list; do
-  # for i in $(seq ${} ${_end}); do
     web-checker $i >> web.log
     echo -n "#"
-    ((idx++))
   done
   echo ""
   echo -e "[*] SCANNING COMPLETE!"
