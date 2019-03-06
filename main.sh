@@ -33,7 +33,7 @@ main () {
     echo ""
     ;;
   esac
-  echo -ne "-----!!hoise#::_> "
+  echo -ne "-----!!choise#::_> "
   read choiseN; main $choiseN
 }
 
