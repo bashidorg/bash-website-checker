@@ -36,7 +36,7 @@ web-checker () {
 
 alive-check () {
   domain=$1
-  status=$(ping -t 1 $domain > /dev/null 2>&1; echo $?)
+  status=$(ping -w 1 $domain > /dev/null 2>&1; echo $?)
   if [ $status -gt 0 ]; then
     echo "--"
     echo -e "[*] $domain is - [DOWN]"
