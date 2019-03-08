@@ -89,3 +89,11 @@ list-down () {
   down=$(cat web.log | grep DOWN)
   echo $down
 }
+
+help-list () {
+  echo "command [option] [abcdefgABCD123~!##]"
+  echo ""
+  echo -e "-h --help \t\t show help commands"
+  echo -e "-q --quite \t\t command line interface"
+  echo -e "-l --link [links] \t\t insert external links"
+}
