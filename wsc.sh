@@ -1,8 +1,15 @@
 #!/bin/bash
 set -e
 source helper.sh
-if [ -z $1 ]; then
-  
+if ! [ -z $1 ]; then
+ case $1 in 
+  '-h' | '--help')
+    help-list
+  ;;
+  '-l' | '--link')
+    hacked-check $2
+  ;;
+  esac
 else
   echo -e ""
   echo -e "..::[ welcome2 website checker ]::.."
