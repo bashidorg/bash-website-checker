@@ -44,7 +44,7 @@ alive-check () {
   elif [ $(uname -a | grep Mac > /dev/null ; echo $?) -eq 0 ]; then
     status=$(ping -t 1 $domain > /dev/null 2>&1; echo $?)
   fi
-  
+
   if [ $status -gt 0 ]; then
     echo -e "[*] $domain is - [DOWN]"
   else
@@ -87,10 +87,11 @@ help-list () {
   echo ""
   echo "///website checker///"
   echo ""
-  echo "COMMAND [OPTION] [abcdefgABCD123~!##] argument"
+  echo "COMMAND [OPTION] argument"
   echo ""
   echo "OPTION:"
   echo -e "\t-h --help \t\t show help commands"
-  echo -e "\t-l --link [links] \t insert external links"
+  echo -e "\t-l --list [list] \t insert external links. like example list.txt"
+  echo -e "\t-d --domain [domain] \t scanning specified domain"
   echo ""
 }
