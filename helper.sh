@@ -27,6 +27,9 @@ web-checker () {
         2>&1 ; echo $?) -eq 0 ]
       then
       echo -e "[*] website $domain is - [HACKED]"
+    elif [ $(curl -s $domain | grep suspend > /dev/null ; echo $? ) -eq 0 ];
+      then
+      echo -e "[!] website $domain is - [SUSPENDED]"
     else
       echo -e "[*] website $domain is - [SAFE]"
     fi
