@@ -57,7 +57,7 @@ hacked-check () {
   list=$(cat $1)
   echo -e "--#PROGRESS:-Domain:SCANNING..."
   for i in $list; do
-    web-checker $i >> web.log
+    web-checker $i >> logs/$(date +%Y-%m-%d)-web.log
     echo -n "#"
   done
   echo ""
@@ -67,20 +67,18 @@ hacked-check () {
 
 reset-weblog () {
   echo -e "---reseting web.log"
-  echo "" > web.log
+  mv logs/$(date +%Y-%m-%d)-web.log logs/$(date +%Y-%m-%d)-web.log-bak
   echo -e "[*] reseting [COMPLETE]"
 }
 
 list-hacked () {
   echo -e "-----LIST WEBSITE IDENTIFY AS HACKED"
-  hacked=$(cat web.log | grep HACKED)
-  echo $hacked
+  cat web.log | grep HACKED
 }
 
 list-down () {
   echo -e "-----LIST WEBSITE IS DOWN"
-  down=$(cat web.log | grep DOWN)
-  echo $down
+  cat web.log | grep DOWN
 }
 
 help-list () {
