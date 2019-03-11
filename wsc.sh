@@ -9,6 +9,9 @@ if ! [ -z $1 ]; then
   '-l' | '--link')
     hacked-check $2
   ;;
+  '-d' | '--domain')
+    web-checker $2
+  ;;
   esac
 else
   echo -e ""
