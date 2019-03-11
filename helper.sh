@@ -39,7 +39,12 @@ web-checker () {
 
 alive-check () {
   domain=$1
-  status=$(ping -w 1 $domain > /dev/null 2>&1; echo $?)
+  if [ $(uname -a | grep Linux > /dev/null ; echo $?) -eq 0 ]; then
+    status=$(ping -w 1 $domain > /dev/null 2>&1; echo $?)
+  elif [ $(uname -a | grep Mac > /dev/null ; echo $?) -eq 0 ]; then
+    status=$(ping -t 1 $domain > /dev/null 2>&1; echo $?)
+  fi
+  
   if [ $status -gt 0 ]; then
     echo -e "[*] $domain is - [DOWN]"
   else
