@@ -38,26 +38,11 @@ alive-check () {
   domain=$1
   status=$(ping -w 1 $domain > /dev/null 2>&1; echo $?)
   if [ $status -gt 0 ]; then
-    echo "--"
     echo -e "[*] $domain is - [DOWN]"
-    echo "--"
   else
     echo -e "[*] server is - [UP]"
   fi
 }
-
-# -------- experimental
-ProgressBar {
-  # Process data
-    let _progress=(${1}*100/${2}*100)/100
-    let _done=(${_progress}*4)/10
-    let _left=40-$_done
-  # Build progressbar string lengths
-    _fill=$(printf "%${_done}s")
-    _empty=$(printf "%${_left}s")
-  printf "\rProgress : [${_fill// /\#}${_empty// /-}] ${_progress}%%"
-}
-# --------
 
 hacked-check () {
   curl-checker
@@ -91,9 +76,13 @@ list-down () {
 }
 
 help-list () {
-  echo "command [option] [abcdefgABCD123~!##]"
   echo ""
-  echo -e "-h --help \t\t show help commands"
-  echo -e "-q --quite \t\t command line interface"
-  echo -e "-l --link [links] \t\t insert external links"
+  echo "///website checker///"
+  echo ""
+  echo "COMMAND [OPTION] [abcdefgABCD123~!##] argument"
+  echo ""
+  echo "OPTION:"
+  echo -e "\t-h --help \t\t show help commands"
+  echo -e "\t-l --link [links] \t insert external links"
+  echo ""
 }
