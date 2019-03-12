@@ -23,7 +23,8 @@ web-checker () {
         curl -s $domain | grep -e hack -e Hack -e hAck -e haCk -e \
         hacK -e HAck -e HaCk -e HacK -e HaCK -e hACk -e hAcK -e \
         haCK -e h4ck -e H4ck -e h4ck -e h4Ck -e h4cK -e H4ck -e \
-        H4Ck -e H4cK -e H4CK -e h4Ck -e h4cK -e h4CK > /dev/null \
+        H4Ck -e H4cK -e H4CK -e h4Ck -e h4cK -e h4CK -e attack -e \
+        ATTACK -e Attack -e 4tt4ck > /dev/null \
         2>&1 ; echo $?) -eq 0 ]
       then
       echo -e "[*] website $domain is - [HACKED]"
