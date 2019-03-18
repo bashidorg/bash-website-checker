@@ -1,7 +1,32 @@
 #!/bin/bash
 set -e
 
-# function
+# sources ----------------------
+source $(find . -name .env-telegram)
+
+# function ---------------------
+
+telegram_authentication_token () {
+    # $1 TELEGRAM_BOT_TOKEN
+    # $2 TELEGRAM_CHAT_ID
+    if [ -z $1 ] || [ -z $2 ]; then
+        echo ""
+        echo "ERR : telegram environment is not valid, please check environment variable bellow :"
+        echo "----> cat .env-telegram :"
+        echo ""
+        cat $(find . -name .env-telegram)
+    fi
+    if [ -z $1 ]; then
+        echo "DETECT_ERR : TELEGRAM_BOT_TOKEN is EMPTY!"
+        return 1; exit
+    elif [ -z $2 ]; then
+        echo "DETECT_ERR : TELEGRAM_CHAT_ID is EMPTY!"
+        return 1; exit
+    fi
+    echo ""
+    return 0
+}
+
 curl-checker () {
   if [ $(which curl > /dev/null 2>&1; echo $?) -gt 0 ]; then
     echo -e "Error : package curl needed, try to install curl package."
