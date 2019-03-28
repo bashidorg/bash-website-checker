@@ -11,7 +11,11 @@ if ! [ -z $1 ]; then
     help-list
   ;;
   '-l' | '--link')
-    hacked-check $2
+    if [ -z $2 ]; then
+      echo "please argue file list."
+    else
+      hacked-check $2
+    fi
   ;;
   '-d' | '--domain')
     web-checker $2
