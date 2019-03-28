@@ -2,7 +2,8 @@
 set -e
 
 # sources ----------------------
-source $(find . -name .env-telegram)
+# source /path/to/.env-telegram.sh
+source ./.env-telegram
 
 # function ---------------------
 
@@ -24,7 +25,7 @@ telegram_authentication_token () {
         return 1; exit
     fi
     echo ""
-    return 0
+    return 0; exit
 }
 
 curl-checker () {
