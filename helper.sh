@@ -7,6 +7,20 @@ source ./.env-telegram
 
 # function ---------------------
 
+send_notif () {
+  is_valid_env=$(telegram_authentication_token $TELEGRAM_BOT_TOKEN $TELEGRAM_CHAT_ID > /dev/null 2>&1 ;echo $?)
+  URL="https://api.telegram.org/bot$KEY/sendMessage"
+  if [ $is_valid_env -gt 0 ]; then
+    echo "please check environment .env-telegram"
+  else
+    TEXT=$(cat $SCANER_LOG | grep -e DOWN -e HACK -e SUSPEN)
+    is_sended=$(curl -s --max-time 10 -d "chat_id=$TELEGRAM_CHAT_ID&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null)
+    if [ $is_sended -gt 0 ]; then
+      echo "message sended to kankuu!"
+    fi
+  fi
+}
+
 telegram_authentication_token () {
     # $1 TELEGRAM_BOT_TOKEN
     # $2 TELEGRAM_CHAT_ID
