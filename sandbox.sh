@@ -62,4 +62,4 @@ telegram_authentication_token () {
     return 0
 }
 
-telegram_authentication_token $TELEGRAM_BOT_TOKEN $TELEGRAM_CHAT_ID ;echo $?
+telegram_authentication_token $TELEGRAM_BOT_TOKEN $TELEGRAM_CHAT_ID > /dev/null 2>&1 ;echo $?
