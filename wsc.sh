@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
+
+# source /path/to/helper.sh
 source helper.sh
+
+
 if ! [ -z $1 ]; then
  case $1 in 
   '-h' | '--help')
