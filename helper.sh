@@ -1,23 +1,26 @@
 #!/bin/bash
-set -e
+set -ex
 
 # sources ----------------------
 # source /path/to/.env-telegram.sh
-source ./.env-telegram
+# source ./.env-telegram
 
 # function ---------------------
 
 send_notif () {
   is_valid_env=$(telegram_authentication_token $TELEGRAM_BOT_TOKEN $TELEGRAM_CHAT_ID > /dev/null 2>&1 ;echo $?)
-  URL="https://api.telegram.org/bot$KEY/sendMessage"
+  URL="https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage"
   if [ $is_valid_env -gt 0 ]; then
     echo "please check environment .env-telegram"
   else
-    TEXT=$(cat $SCANER_LOG | grep -e DOWN -e HACK -e SUSPEN)
+    TEXT=$(cat $SCANER_LOG/$(date +%d_%m_%Y)-web.log | grep -e DOWN -e HACK -e SUSPEN)
     is_sended=$(curl -s --max-time 10 -d "chat_id=$TELEGRAM_CHAT_ID&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null)
-    if [ $is_sended -gt 0 ]; then
-      echo "message sended to kankuu!"
-    fi
+    curl -s --max-time 10 -d "chat_id=$TELEGRAM_CHAT_ID&disable_web_page_preview=1&text=$TEXT" $URL > /dev/null
+    sleep 10;
+    echo $is_sended
+    # if [ $is_sended -gt 0 ]; then
+    #   echo "message sended to kankuu!"
+    # fi
   fi
 }
 
@@ -98,7 +101,11 @@ hacked-check () {
   list=$(cat $1)
   echo -e "--#PROGRESS:-Domain:SCANNING..."
   for i in $list; do
-    web-checker $i >> logs/$(date +%Y-%m-%d)-web.log
+    if [[ -z $2 ]]; then
+      web-checker $i >> logs/$(date +%d_%m_%Y)-web.log
+    else
+      web-checker $i >> $2/$(date +%d_%m_%Y)-web.log
+    fi
     echo -n "#"
   done
   echo ""
