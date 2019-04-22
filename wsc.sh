@@ -38,8 +38,20 @@ else
     choise=$1
     if [ -z $choise ]; then choise=9; fi
     case $choise in
-    "1") hacked-check list.txt ;;
-    "2") list-hacked ;;
+    "1") 
+      echo -n "do you have a website list yet [y/n] : "; read ans
+      case $ans in
+        "y") 
+          echo -n "tell me where is it : "; read path 
+          hacked-check $path
+        ;;
+        "n") 
+          echo "default system will scanning ./domain.list file." 
+          hacked-check domain.list
+        ;;
+      esac
+    ;;
+    "2") list-hacked ;; 
     "3") list-down ;;
     "4") reset-weblog ;;
     "q" | "Q") 
